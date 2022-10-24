@@ -33,6 +33,7 @@ UserSchema.pre('save', async function (next) {
 })
 
 // user defined instance methods of document
+
 // UserSchema.methods.getName = function () {
 //   return this.name;
 // }
@@ -41,6 +42,11 @@ UserSchema.methods.createJWT = function () {
   return jwt.sign({ userId: this._id, name: this.name }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES
   });
+}
+
+UserSchema.methods.comparePassword = async function (enteredPassword) {
+  const isMatch = await bcrypt.compare(enteredPassword, this.password);
+  return isMatch;
 }
 
 module.exports = mongoose.model('UserCollection', UserSchema);
