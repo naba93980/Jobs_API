@@ -2,7 +2,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const { UnauthorizationError } = require('../errors')
 
-const auth = async (req, res, next) => {
+const authorizationMiddleware = async (req, res, next) => {
     // check header 
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -20,4 +20,4 @@ const auth = async (req, res, next) => {
     }
 }
 
-module.exports = auth;
+module.exports = authorizationMiddleware;
