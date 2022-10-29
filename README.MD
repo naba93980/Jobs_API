@@ -42,6 +42,19 @@ Email Validation Regex
 - If correct, generate Token
 - Send Response with Token
 
+
+#### Job Model
+
+- Model for each job document
+
+#### Job Controllers
+
+- Create Job 
+- Get Job
+- Get All Jobs
+- Delete Job
+- Update Job
+
 #### Mongoose Errors
 
 - Validation Errors
