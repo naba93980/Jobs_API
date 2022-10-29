@@ -1,5 +1,11 @@
 require("dotenv").config();
 require("express-async-errors");
+
+const helmet = require('helmet');
+const cors = require('cors');
+const xss = require('xss-clean');
+const rateLimiter = require('express-rate-limit');
+
 const express = require("express");
 const app = express();
 
@@ -14,8 +20,18 @@ const connectDB = require("./db/connect");
 const authRouter = require("./routes/auth");
 const jobsRouter = require("./routes/jobs");
 
+app.set('trust proxy', true);
+app.use(rateLimiter({
+  windowMs: 10 * 60 * 1000,
+  max: 100, 
+  standardHeaders: true, 
+  legacyHeaders: false
+}));
 app.use(express.json());
-// extra packages
+app.use(helmet());
+app.use(cors());
+app.use(xss());
+
 
 // routes
 app.use("/auth", authRouter);
