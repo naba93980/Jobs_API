@@ -13,10 +13,10 @@ const authorizationMiddleware = async (req, res, next) => {
     try {
         const payload = jwt.verify(token, process.env.JWT_SECRET);
         // attach the user to the job routes
-        req.user = { userld: payload.userld, name: payload.name };
+        req.user = { userId: payload.userId, name: payload.name };
         next();
     } catch (err) {
-        throw new UnauthorizationError('Authorization invalid');
+        throw new UnauthorizationError('Authorization invalid ....token could not be verified');
     }
 }
 
